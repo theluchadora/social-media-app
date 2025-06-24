@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './InfoCard.css'
 import { FaPen } from "react-icons/fa";
+import ProfileModal from '../ProfileModal/ProfileModal'
 
 
 const InfoCard = () => {
+
+    const [modalOpened, setModalOpened] = useState(false);
+
   return (
     <div className="InfoCard">
         <div className="infoHead">
             <div>
                 <h4>Your Info</h4>
-                <FaPen />
+                <FaPen onClick={()=>setModalOpened(true)}/>
+                <ProfileModal modalOpened={modalOpened} setModalOpened={setModalOpened}/>
             </div>
         </div>
 
