@@ -22,7 +22,7 @@ export const registerUser = async (req, res) => {
         // Create JWT token
         const token = jwt.sign({ username: user.username, id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-        res.status(200).json(user, token);
+        res.status(200).json({user, token});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -39,7 +39,15 @@ export const loginUser = async (req, res) => {
         {
             const isPasswordValid = await bcrypt.compare(password, user.password);
 
-            isPasswordValid? res.status(200).json(user): res.status(400).json("Wrong Password");
+            if (!isPasswordValid) {
+                return res.status(400).json("Wrong Password");
+            }else {
+                // Create JWT token
+                const token = jwt.sign({ username: user.username, id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+                
+                res.status(200).json({ user, token });
+            }
+            
             
         }else {
             res.status(404).json("User doesn't exist");
