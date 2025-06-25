@@ -5,8 +5,12 @@
 /.pnp
 .pnp.js
 
+#test images
+/public/images/*
+
 # testing
 /coverage
+
 
 # production
 /build
