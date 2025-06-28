@@ -2,6 +2,22 @@ import UserModel from '../Models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+
+
+// get all users
+export const getAllUser = async (req, res) => {
+    try {
+        let users = await UserModel.find();
+        users = users.map(user => {
+            const { password, ...otherDetails } = user._doc; // Exclude password from the response
+            return otherDetails;
+        });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 // get user 
 export const getUser = async (req, res) => {
 
@@ -72,17 +88,17 @@ export const deleteUser = async (req, res) => {
 // follow a user
 export const followUser = async (req, res) => {
     const id = req.params.id; //user to be followed
-    const { currentUserId } = req.body;
+    const { _id } = req.body;
 
-    if (id === currentUserId) {
+    if (id === _id) {
         res.status(403).json("Action Forbidden! You can't follow yourself");
     } else {
         try {
             const userToFollow = await UserModel.findById(id);
-            const currentUser = await UserModel.findById(currentUserId);
+            const currentUser = await UserModel.findById(_id);
 
-            if (!userToFollow.followers.includes(currentUserId)) {
-                await userToFollow.updateOne({ $push: { followers: currentUserId } });
+            if (!userToFollow.followers.includes(_id)) {
+                await userToFollow.updateOne({ $push: { followers: _id } });
                 await currentUser.updateOne({ $push: { following: id } });
                 res.status(200).json("User followed successfully");
             } else {
@@ -97,17 +113,17 @@ export const followUser = async (req, res) => {
 // unfollow a user
 export const unfollowUser = async (req, res) => {
     const id = req.params.id; //user to be unfollowed
-    const { currentUserId } = req.body;
+    const { _id } = req.body;
 
-    if (id === currentUserId) {
+    if (id === _id) {
         res.status(403).json("Action Forbidden! You can't unfollow yourself");
     } else {
         try {
             const userToUnfollow = await UserModel.findById(id);
-            const currentUser = await UserModel.findById(currentUserId);
+            const currentUser = await UserModel.findById(_id);
 
-            if (userToUnfollow.followers.includes(currentUserId)) {
-                await userToUnfollow.updateOne({ $pull: { followers: currentUserId } });
+            if (userToUnfollow.followers.includes(_id)) {
+                await userToUnfollow.updateOne({ $pull: { followers: _id } });
                 await currentUser.updateOne({ $pull: { following: id } });
                 res.status(200).json("User unfollowed successfully");
             } else {
