@@ -18,6 +18,7 @@ const PostShare = () => {
     const dispatch = useDispatch();
     const desc = useRef();
     const { user } = useSelector((state) => state.auth.authData);
+    const serverPublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
 
     const onImageChange =(event)=>{
         if(event.target.files && event.target.files[0]){
@@ -58,7 +59,14 @@ const PostShare = () => {
 
   return (
     <div className="PostShare">
-        <img src={ProfileImage} alt='' />
+         <img
+          src={
+            user.profilePicture
+              ? `${serverPublicFolder}${user.profilePicture}?${Date.now()}`
+              : `${serverPublicFolder}theDefaultProfile.png`
+          }
+          alt=""
+        />
         <div>
           
            <input 
