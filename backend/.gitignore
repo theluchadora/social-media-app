@@ -7,6 +7,9 @@
 
 #test images
 /public/images/*
+!/public/images/theDefaultCover.png
+!/public/images/theDefaultProfile.png
+
 
 # testing
 /coverage
