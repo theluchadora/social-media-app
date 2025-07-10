@@ -1,7 +1,7 @@
 # 📱 Social Media App
 
 A full-stack social media application built with **Node.js**, **Express**, **MongoDB**, and **React**.  
-Users can register, login, post images, update their profiles, like posts, and interact with other users(follow and unfollow) — all in a clean and modern interface.
+Users can register, login, post images, update their profiles, like posts, and interact with other users(follow and unfollow) all in a clean and modern interface.
 
 ---
 
