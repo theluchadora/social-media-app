@@ -8,6 +8,7 @@ import { FaRegClock } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage, uploadPost } from '../../actions/uploadAction';
+import { PUBLIC_FOLDER } from "../../config";
 
 
 
@@ -18,7 +19,7 @@ const PostShare = () => {
     const dispatch = useDispatch();
     const desc = useRef();
     const { user } = useSelector((state) => state.auth.authData);
-    const serverPublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
+    const serverPublicFolder = PUBLIC_FOLDER;
 
     const onImageChange =(event)=>{
         if(event.target.files && event.target.files[0]){

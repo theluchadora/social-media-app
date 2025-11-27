@@ -4,12 +4,15 @@ import Profile from '../../img/profileImg.jpg'
 import { Link } from 'react-router-dom'
 import './ProfileCard.css'
 import { useSelector } from 'react-redux'
+import { PUBLIC_FOLDER } from "../../config";
+
+
 
 const ProfileCard = ({location}) => {
 
     const { user } = useSelector((state) => state.auth.authData);
     const posts = useSelector((state) => state.post.posts);
-    const serverPublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
+    const serverPublicFolder = PUBLIC_FOLDER;
 
     
 
