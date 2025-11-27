@@ -6,6 +6,7 @@ import Heart from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
 import { useSelector } from 'react-redux'
 import { likePost } from '../../api/PostRequest'
+import { PUBLIC_FOLDER } from "../../config";
 
 const Post = ({data}) => {
   const { user } = useSelector((state) => state.auth.authData);
@@ -24,7 +25,7 @@ const Post = ({data}) => {
 
   return (
     <div className="Post">
-        <img src={data.image? process.env.REACT_APP_PUBLIC_FOLDER + data.image: ""} alt="" />
+        <img src={data.image? PUBLIC_FOLDER + data.image: ""} alt="" />
 
         <div className="postReact">
             <img src={liked?Heart: NotLike} alt="" style={{cursor: "pointer"}} onClick={handleLike}/>
